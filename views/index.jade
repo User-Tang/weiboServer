@@ -1,0 +1,22 @@
+extends layout
+script(src="public/javascripts/jquery-3.3.1.min.js")
+script(src="routes/index.js")
+block content
+  h1= title
+  账号：
+  input(type="text",id="username",value="")
+  密码：
+  input(type="password", name="",id="password",value="")
+  &nbsp&nbsp&nbsp&nbsp
+  button(disabled=false,id="login",onClick="login()")登陆
+  br
+  div(id="contentDiv",hidden="hidden")
+    密钥：
+    input(type="text",id="appkey")
+    账号ID：
+    input(type="text",id="userid")
+    br
+    内容：
+    input(type="text",id="content")
+    br
+    input(type="button", value="发布微博",id="publish-weibo")
