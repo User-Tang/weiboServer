@@ -6,32 +6,25 @@ var request = require('request');
 var router = express.Router();
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    var pic_binary = request
-        .get('http://www.baidu.com/img/bd_logo1.png')
-        .on('response', function (response) {
-            console.log(response.statusCode) // 200
-            console.log(response.headers['content-type']) // 'image/png'
-        })
+
     var text = req.query.text;
     var statusText = text + " http://www.cddcjt.cn ";
+
     if (text != null && text != undefined && text != '') {
         Weibo.init(setting);
         var share_para = {
             access_token: "2.00maKMEH0WpgiV209d583bdfRBGWME",
             status: statusText,
-            pic: pic_binary //"http://www.baidu.com/img/bd_logo1.png"
+            pic: req.query.pic //"http://www.baidu.com/img/bd_logo1.png"
         };
-
         Weibo.Statuses.share(share_para, function (data) {
-            console.log(data);
             res.send(data);
         });
     } else {
-        res.send("发送内容不能为空,调用格式为：.../weiboServer?text=内容");
+        res.send("发送内容不能为空,调用格式为：.../weiboServer?text=内容&pic=图片路径");
     }
 
 });
-module.exports = router;
 /*
 +-------------------------------------------------
 (1)注册账号：http://open.weibo.com/
@@ -71,9 +64,9 @@ module.exports = router;
 +---------------------------------------------------
 */
 // var jsonParas = {
-//     // client_id:"468717490",
-//     // client_secret:"db8de19e18431e5508f615f83a958afb",
-//     code:"e3104edf102c5097df340433efbf9ca7",
+//     client_id:"468717490",
+//     client_secret:"db8de19e18431e5508f615f83a958afb",
+//     code:"b3a134f61c30eabc6dc8e0969a5c1c77",
 //     grant_type:"authorization_code"
 // };
 
@@ -91,7 +84,6 @@ module.exports = router;
 //     "source": Weibo.appKey.appKey,
 //     "access_token": '2.00maKMEH0WpgiV209d583bdfRBGWME'//'2.00VcXgHGULxxYE6484538b020C9B7W'
 // };
-
 // get public timeline
 // Weibo.Statuses.public_timeline(para, function (data) {
 //     console.log(data);
@@ -101,18 +93,4 @@ module.exports = router;
 //     console.log(data);
 // });
 
-// var share_para = {
-//     access_token:"2.00maKMEH0WpgiV209d583bdfRBGWME",
-//     status:"大家好 http://www.cddcjt.cn ",
-//     pic:"http://www.baidu.com/img/bd_logo1.png"
-//     // rip:"211.156.0.1"
-// }; 
-
-// // var access_token = JSON.stringify("2.00maKMEH0WpgiV209d583bdfRBGWME");
-// // var statuses = JSON.stringify(" http%3a%2f%2fcdd.mynatapp.cc+%e8%af%a5%e6%9d%a1%e5%be%ae%e5%8d%9a%e7%94%b1JAVA%e7%a8%8b%e5%ba%8f%e5%8f%91%e9%80%81%ef%bc%8c%e7%9b%ae%e7%9a%84%e6%b5%8b%e8%af%95%e5%85%b6%e5%be%ae%e5%8d%9a%e7%9b%b8%e5%85%b3api%ef%bc%8c%e5%b9%b6%e6%97%a0%e5%ae%9e%e9%99%85%e7%94%a8%e9%80%94%e3%80%82 ");
-// // Weibo.Comments.timeline(access_token,function(data){
-// //     console.log(data);
-// // });
-// Weibo.Statuses.share(share_para,function(data){
-//     console.log(data);
-// });
+module.exports = router;
